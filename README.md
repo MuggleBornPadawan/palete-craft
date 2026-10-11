@@ -1,26 +1,29 @@
 # PaletteCraft
 
-Fine Art Gallery & Brand Identity System that extracts harmonized 5-token brand color palettes and generates proportional geometric brand marks from historic masterpieces and custom artwork uploads.
+Masterpiece Chromatic & Tonal Studio for analyzing painterly color palettes, historical pigments, proportional coverage areas, and 10-step tonal value structures from historic classical paintings and custom artwork uploads.
+
+**Live Studio:** [https://mugglebornpadawan.github.io/palete-craft/](https://mugglebornpadawan.github.io/palete-craft/)
 
 ---
 
-## Perspectives & Features
+## Visual Arts Studio Features
 
-### 1. Fine Art Gallery
-- **Masterpiece Exhibition:** Curated classical art presets (*The Great Wave off Kanagawa*, *The Starry Night*, *Water Lilies*, *Girl with a Pearl Earring*).
-- **Uncropped Gallery Matting:** Artwork displayed with museum-grade containment matting preserving original composition and aspect ratio.
-- **Museum Provenance:** Full exhibition metadata with institution attribution and worldwide Public Domain licensing status.
-- **Custom Artwork Curation:** Upload custom imagery for instant client-side palette extraction.
+### 1. Museum-Grade Adaptive Exhibition Matting
+- **Preserved Aspect Ratios:** Artworks display uncropped within dynamic archival matting.
+- **Adaptive Contrast Containment:** Uses warm archival linen (`#E8E3DC`) for high and mid-key compositions. Automatically shifts to deep gallery charcoal (`#1C1A17`) for low-key chiaroscuro works (e.g., Vermeer) to prevent retinal glare and preserve delicate shadow glazing (*velatura*).
+- **Curated Classical Art Presets:** Katsushika Hokusai (*The Great Wave* — ukiyo-e woodblock), Vincent van Gogh (*The Starry Night* — tube impasto), Claude Monet (*Water Lilies* — broken color scumble), Johannes Vermeer (*Girl with a Pearl Earring* — tenebrist glaze).
+- **Museum Provenance & Medium Attribution:** Institutional attribution, historical paint medium specifications, and Public Domain worldwide licensing status.
+- **Custom Canvas Curation:** Ingest custom painting reproductions for instant client-side chromatic and tonal study.
 
-### 2. Brand Design Tool
-- **Semantic Brand Tokens:** Extracts 5 distinct, harmonized color tokens assigned to concrete design system roles (`Dominant`, `Secondary`, `Accent`, `Surface`, `Neutral`).
-- **Proportional Geometric Brand Mark:** Derives a vector-ratio geometric brand mark (50% hero block + 4 balanced accent quadrants) from the extracted palette.
-- **Live Brand System Preview:** Real-time design system mockup (cards, primary CTAs, outline buttons, and badge chips) that dynamically recolors on token selection.
-- **One-Click Clipboard Copy:** Instant hex code copying to the clipboard with visual toast feedback.
-- **Perceptual Color Engine:**
-  - Chroma vividness scoring prioritizes vibrant brand swatches over muddy background tones.
-  - Redmean perceptual distance ensures distinct contrast across all 5 selected tokens.
-- **Zero Build Dependencies:** Single-file HTML5 Canvas and vanilla JavaScript. Runs offline without npm or node dependencies.
+### 2. Chromatic, Tonal & Surface Analysis
+- **Focal-Weighted Compositional Hierarchy:** Visualizes canvas mass distribution as a proportional ribbon. Uses saturation weighting ($1.0 + 1.8 \times S$) so vital focal accents (such as Hokusai's vermilion seal or Vermeer's pearl) maintain compositional prominence rather than vanishing in flat area calculations.
+- **Masstone & Undertone Swatch Drawdowns:** Two-tier test cards displaying pure opaque paint body (masstone) alongside translucent glaze washes revealing the substrate (undertone).
+- **Historical Pigment Approximation:** Algorithmic mapping of extracted tones to authentic artist pigments (*Prussian Blue / Bero-ai*, *Genuine Lapis Lazuli*, *French Ultramarine*, *Alizarin Crimson*, *Mineral Vermilion*, *Yellow Ochre*, *Chrome Yellow*, *Deep Viridian*, *Lead White*, *Bone Black*). Monet's palette accurately excludes earth pigments (*Terre Verte*, umber) and black.
+- **10-Step Munsell Tonal Value Scale:** Evaluates value structure from Value 1 (deep shadow / bone black) to Value 10 (high highlight / lead white). Classifies works into Low-Key (tenebrist/chiaroscuro), Mid-Key (harmonized), or High-Key (luminous).
+- **Color Temperature Equilibrium:** Quantifies the exact ratio of Cool vs. Warm pigments across the composition.
+- **Decoupled Harmony & Handling:** Separates chromatic geometry (*Analogous*, *Complementary Nocturne*, *Harmonic Spectrum*) from physical paint application (*Ukiyo-e Bokashi Gradation*, *Directional Impasto Flow*, *Impressionist Tache Scumble*, *Tenebrist Glazing*).
+- **Authentic Painterly Fallbacks:** Procedural rendering simulating historical techniques when photographic assets are offline.
+- **Pure Browser Atelier:** Single-file HTML5 Canvas and vanilla JavaScript. Runs offline without build dependencies.
 
 ---
 
@@ -33,7 +36,7 @@ palete-craft/
 │   ├── pearl_earring.jpg    # Johannes Vermeer — Girl with a Pearl Earring
 │   ├── starry_night.jpg     # Vincent van Gogh — Starry Night
 │   └── water_lilies.jpg     # Claude Monet — Water Lilies
-├── index.html               # Main application and color engine
+├── index.html               # Main studio application & fine-art color engine
 └── README.md                # Project documentation
 ```
 
@@ -56,13 +59,12 @@ bb http-server
 
 ---
 
-## Technical Architecture
+## Atelier Analytical Architecture
 
-* **Quantization:** Samples pixels at 2px intervals and groups colors into 16-unit bins.
-* **Vividness Scoring:** Filters out near-grayscale pixels and balances chroma against lightness.
-* **Redmean Distance:** Calculates weighted color distance to maximize distinctness:
-  $$\Delta C = \sqrt{\left(2 + \frac{\bar{r}}{256}\right)\Delta r^2 + 4\Delta g^2 + \left(2 + \frac{255 - \bar{r}}{256}\right)\Delta b^2}$$
-* **Safe Canvas Scaling:** Limits internal canvas sampling to a maximum dimension of 400px to prevent memory bottlenecks.
+* **Spatial Pixel Sampling:** Samples pixels at 2px intervals to capture delicate highlights and broad washes.
+* **Focal Mass Weighting:** Balances spatial coverage against chromatic saturation ($1.0 + 1.8 \times S$) to ensure critical focal accents (such as Vermeer's pearl highlight or Hokusai's vermilion seal) receive true compositional prominence.
+* **Tonal Value Scale:** Computes relative luminance ($Y = 0.2126R + 0.7152G + 0.0722B$) mapped across a 10-step Munsell value scale (Value 1: Bone Black shadow to Value 10: Lead White highlight).
+* **Historical Pigment Heuristics:** Maps HSV coordinates and tonal values to authentic historical artist pigments with medium-conscious constraints.
 
 ---
 

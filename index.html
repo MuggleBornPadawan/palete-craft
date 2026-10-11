@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PaletteCraft — Dynamic Brand Color Engine</title>
+  <title>PaletteCraft — Masterpiece Chromatic & Tonal Studio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Goudy+Bookletter+1911&family=Space+Grotesk:wght@300;400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -65,27 +65,115 @@
       margin-top: 0.3rem;
     }
 
-    .upload-box {
+
+
+    .gallery-column {
       display: flex;
-      align-items: center;
-      gap: 0.75rem;
+      flex-direction: column;
+      gap: 1.5rem;
     }
 
-    .upload-btn {
-      background: var(--btn);
-      color: var(--btn-text);
-      border: none;
-      padding: 0.6rem 1.2rem;
-      font-family: "Space Grotesk", sans-serif;
-      font-size: 0.85rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background 0.2s ease;
-      text-decoration: none;
-      display: inline-block;
+    .canvas-loader-panel {
+      background: #fff;
+      border: 1px solid var(--rule);
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
     }
-    .upload-btn:hover { background: var(--accent); }
-    #fileInput { display: none; }
+
+    .dropzone-box {
+      border: 2px dashed var(--rule);
+      background: var(--ivory);
+      border-radius: 2px;
+      padding: 1.75rem 1.25rem;
+      text-align: center;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .dropzone-box:hover, .dropzone-box.drag-active {
+      border-color: var(--accent);
+      background: #f5efe6;
+    }
+    .dropzone-box input[type="file"] {
+      display: none;
+    }
+    .dropzone-icon {
+      font-size: 2rem;
+      margin-bottom: 0.4rem;
+      line-height: 1;
+    }
+    .dropzone-title {
+      font-weight: 500;
+      font-size: 0.88rem;
+      color: var(--ink);
+      margin-bottom: 0.2rem;
+    }
+    .dropzone-subtitle {
+      font-family: "Spline Sans Mono", monospace;
+      font-size: 0.65rem;
+      color: var(--ink-muted);
+      margin-bottom: 0.85rem;
+    }
+    .dropzone-btn {
+      background: var(--ink);
+      color: var(--ivory);
+      border: 1px solid var(--ink);
+      padding: 0.45rem 1.1rem;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border-radius: 2px;
+      cursor: pointer;
+      display: inline-block;
+      pointer-events: none;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .dropzone-box:hover .dropzone-btn {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .canvas-file-info {
+      margin-top: 1rem;
+      padding-top: 0.9rem;
+      border-top: 1px solid var(--cream);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+    .file-info-details {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+    .file-name {
+      font-family: "Spline Sans Mono", monospace;
+      font-size: 0.72rem;
+      color: var(--ink);
+      font-weight: 500;
+    }
+    .file-stats {
+      font-family: "Spline Sans Mono", monospace;
+      font-size: 0.62rem;
+      color: var(--ink-muted);
+    }
+    .reset-preset-btn {
+      background: transparent;
+      border: 1px solid var(--rule);
+      color: var(--ink-soft);
+      font-family: "Spline Sans Mono", monospace;
+      font-size: 0.65rem;
+      padding: 0.3rem 0.65rem;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .reset-preset-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
 
     .presets {
       display: flex;
@@ -146,14 +234,33 @@
     .image-container {
       width: 100%;
       height: 380px;
-      background: #141210;
+      background: #e8e3dc;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
       position: relative;
       border: 1px solid var(--rule);
-      padding: 0.75rem;
+      padding: 1.25rem;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.06);
+      transition: background 0.3s ease, outline 0.2s ease, box-shadow 0.3s ease;
+    }
+
+    /* Adaptive Archival Matting for Low-Key Chiaroscuro & Tenebrist Works */
+    .image-container.dark-mat {
+      background: #1c1a17;
+      box-shadow: inset 0 2px 14px rgba(0,0,0,0.45);
+      border-color: #332e27;
+    }
+
+    .image-container.drag-active {
+      outline: 2px dashed var(--accent);
+      outline-offset: -6px;
+      background: #dfd7cc;
+    }
+
+    .image-container.dark-mat.drag-active {
+      background: #282420;
     }
 
     .image-container canvas {
@@ -161,7 +268,8 @@
       max-height: 100%;
       object-fit: contain;
       display: none;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.45);
+      box-shadow: 0 4px 18px rgba(35, 28, 20, 0.22);
+      border: 1px solid rgba(0,0,0,0.08);
     }
 
     .image-container img {
@@ -169,7 +277,8 @@
       max-height: 100%;
       object-fit: contain;
       display: block;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.45);
+      box-shadow: 0 4px 18px rgba(35, 28, 20, 0.22);
+      border: 1px solid rgba(0,0,0,0.08);
     }
 
     .artwork-meta {
@@ -180,10 +289,18 @@
       font-style: italic;
     }
 
+    .artwork-medium {
+      margin-top: 0.25rem;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 0.72rem;
+      color: var(--ink-soft);
+      line-height: 1.35;
+    }
+
     .artwork-license {
-      margin-top: 0.35rem;
+      margin-top: 0.3rem;
       font-family: "Spline Sans Mono", monospace;
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       color: var(--ink-muted);
       letter-spacing: 0.02em;
     }
@@ -224,33 +341,56 @@
       color: var(--ink-muted);
     }
 
-    .logo-display {
+    /* Proportional Area Bar */
+    .proportional-bar {
+      height: 38px;
       display: flex;
-      align-items: center;
-      gap: 1.25rem;
-    }
-
-    #logoCanvas {
-      width: 96px;
-      height: 96px;
+      width: 100%;
       border: 1px solid var(--rule);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-      flex-shrink: 0;
+      border-radius: 2px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      background: var(--cream);
     }
 
-    .logo-info p {
-      font-size: 0.92rem;
-      color: var(--ink);
-      font-weight: 500;
+    .prop-segment {
+      height: 100%;
+      transition: width 0.3s ease, opacity 0.2s ease;
+      cursor: pointer;
+      position: relative;
     }
-    .logo-info span {
+    .prop-segment:hover {
+      filter: brightness(1.08);
+    }
+
+    .proportional-legend {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-top: 0.85rem;
+    }
+
+    .legend-chip {
       font-family: "Spline Sans Mono", monospace;
-      font-size: 0.72rem;
-      color: var(--ink-muted);
-      display: block;
-      margin-top: 0.2rem;
+      font-size: 0.65rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      color: var(--ink-soft);
+      background: var(--cream);
+      padding: 0.25rem 0.55rem;
+      border: 1px solid var(--rule);
+      border-radius: 2px;
+    }
+    .legend-chip .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,0,0,0.15);
+      display: inline-block;
     }
 
+    /* Swatches Grid */
     .swatches-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -266,9 +406,23 @@
 
     .swatch-color {
       height: 56px;
-      border: 1px solid rgba(0,0,0,0.1);
+      border: 1px solid rgba(0,0,0,0.14);
       border-radius: 2px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: inset 0 1px 2px rgba(255,255,255,0.15);
       transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .swatch-masstone {
+      flex: 65;
+      width: 100%;
+    }
+    .swatch-undertone {
+      flex: 35;
+      width: 100%;
+      background: linear-gradient(to bottom, rgba(245, 240, 232, 0.2), rgba(245, 240, 232, 0.65));
+      border-top: 1px dashed rgba(255,255,255,0.4);
     }
     .swatch-card:hover .swatch-color {
       transform: translateY(-2px);
@@ -287,91 +441,165 @@
       font-weight: 500;
     }
 
-    .swatch-role {
+    .swatch-pigment {
+      font-size: 0.72rem;
+      font-style: italic;
+      text-align: center;
+      color: var(--ink-soft);
+      line-height: 1.2;
+      min-height: 1.8rem;
+    }
+
+    .swatch-meta {
       font-family: "Spline Sans Mono", monospace;
       font-size: 0.58rem;
       text-align: center;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.02em;
       color: var(--ink-muted);
     }
 
-    /* Brand Application Preview */
-    .brand-preview-card {
-      background: var(--cream);
-      border: 1px solid var(--rule);
-      padding: 1.25rem;
-      border-radius: 2px;
+    /* Fine Art Analysis */
+    .analysis-row {
+      margin-bottom: 1.1rem;
     }
-    .brand-preview-header {
+
+    .analysis-meta {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 0.65rem;
-    }
-    .brand-badge {
       font-family: "Spline Sans Mono", monospace;
-      font-size: 0.65rem;
+      font-size: 0.68rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .analysis-label {
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .analysis-val {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .temp-bar {
+      height: 14px;
+      display: flex;
+      width: 100%;
+      border-radius: 2px;
+      overflow: hidden;
+      border: 1px solid var(--rule);
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .temp-cool {
+      background: #395c7e;
+      transition: width 0.3s ease;
+    }
+    .temp-warm {
+      background: #b55331;
+      transition: width 0.3s ease;
+    }
+
+    .value-scale {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      height: 18px;
+      border: 1px solid var(--rule);
+      border-radius: 2px;
+      overflow: visible;
+      position: relative;
+    }
+    .value-step {
+      height: 100%;
+      position: relative;
+      border-right: 1px solid rgba(0,0,0,0.06);
+    }
+    .value-step:last-child {
+      border-right: none;
+    }
+    .value-step.active::after {
+      content: '';
+      position: absolute;
+      top: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--ink);
+      border: 1.5px solid #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+
+    .harmony-card {
+      background: var(--cream);
+      border: 1px solid var(--rule);
+      padding: 1.1rem 1.25rem;
+      border-radius: 2px;
+      margin-top: 1.2rem;
+    }
+
+    .harmony-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      gap: 0.5rem;
+    }
+
+    .harmony-badge {
+      font-family: "Spline Sans Mono", monospace;
+      font-size: 0.62rem;
       letter-spacing: 0.06em;
       text-transform: uppercase;
       padding: 0.2rem 0.55rem;
-      background: var(--accent);
+      background: var(--ink);
       color: var(--btn-text);
       border-radius: 2px;
       font-weight: 500;
-      transition: background 0.2s ease, color 0.2s ease;
     }
-    .brand-spec {
+
+    .handling-badge {
       font-family: "Spline Sans Mono", monospace;
       font-size: 0.62rem;
-      color: var(--ink-muted);
-    }
-    .brand-preview-title {
-      font-family: "Goudy Bookletter 1911", Georgia, serif;
-      font-size: 1.25rem;
-      color: var(--ink);
-      margin-bottom: 0.35rem;
-      line-height: 1.3;
-    }
-    .brand-preview-text {
-      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      background: var(--ivory);
       color: var(--ink-soft);
-      margin-bottom: 1rem;
-      line-height: 1.45;
+      border: 1px solid var(--rule);
+      border-radius: 2px;
+      font-weight: 500;
     }
-    .brand-preview-actions {
+
+    .harmony-title-row {
       display: flex;
-      gap: 0.6rem;
-      align-items: center;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.5rem;
+      margin-bottom: 0.4rem;
       flex-wrap: wrap;
     }
-    .brand-btn-primary {
-      background: var(--accent);
-      color: var(--btn-text);
-      border: 1px solid var(--accent);
-      padding: 0.45rem 1rem;
-      font-family: "Space Grotesk", sans-serif;
-      font-size: 0.8rem;
-      font-weight: 500;
-      cursor: pointer;
-      border-radius: 2px;
-      transition: all 0.2s ease;
-    }
-    .brand-btn-secondary {
-      background: transparent;
+
+    .harmony-type {
+      font-family: "Spline Sans Mono", monospace;
+      font-size: 0.68rem;
       color: var(--ink);
-      border: 1px solid var(--ink-soft);
-      padding: 0.45rem 1rem;
-      font-family: "Space Grotesk", sans-serif;
-      font-size: 0.8rem;
-      font-weight: 500;
-      cursor: pointer;
-      border-radius: 2px;
-      transition: all 0.2s ease;
+      font-weight: 600;
     }
-    .brand-btn-secondary:hover {
-      border-color: var(--accent);
-      color: var(--accent);
+
+    .handling-type {
+      font-family: "Spline Sans Mono", monospace;
+      font-size: 0.64rem;
+      color: var(--ink-muted);
+      font-style: italic;
+    }
+
+    .harmony-description {
+      font-size: 0.82rem;
+      color: var(--ink-soft);
+      line-height: 1.45;
     }
 
     .toast-notification {
@@ -413,11 +641,7 @@
     <header>
       <div class="title-area">
         <h1>PaletteCraft</h1>
-        <p>Fine Art Gallery · Brand Identity System</p>
-      </div>
-      <div class="upload-box">
-        <label for="fileInput" class="upload-btn">Upload Artwork</label>
-        <input type="file" id="fileInput" accept="image/*">
+        <p>Masterpiece Chromatic & Tonal Studio</p>
       </div>
     </header>
 
@@ -426,34 +650,59 @@
     </div>
 
     <div class="workspace">
-      <div class="preview-card">
-        <div class="image-container">
-          <canvas id="previewCanvas" width="400" height="300"></canvas>
-          <img id="sourceImage" src="assets/hokusai.jpg" alt="Source Artwork" />
+      <div class="gallery-column">
+        <div class="preview-card">
+          <div class="image-container" id="imageContainer">
+            <canvas id="previewCanvas" width="400" height="300"></canvas>
+            <img id="sourceImage" src="assets/hokusai.jpg" alt="Source Artwork" />
+          </div>
+          <div class="artwork-meta" id="artworkMeta">Loading artwork...</div>
+          <div class="artwork-medium" id="artworkMedium"></div>
+          <div class="artwork-license" id="artworkLicense"></div>
         </div>
-        <div class="artwork-meta" id="artworkMeta">Loading artwork...</div>
-        <div class="artwork-license" id="artworkLicense"></div>
+
+        <div class="panel canvas-loader-panel" id="canvasLoaderPanel">
+          <div class="panel-header">
+            <h2>Custom Canvas Studio</h2>
+            <span class="panel-hint">Archival Ingestion & Reference Studies</span>
+          </div>
+          <div class="dropzone-box" id="dropzoneBox">
+            <input type="file" id="fileInput" accept="image/*" title="Click or drop artwork file">
+            <div class="dropzone-icon">🖼️</div>
+            <div class="dropzone-title">Place canvas or study reproduction here, or click to browse</div>
+            <div class="dropzone-subtitle">Archival client-side ingestion · Ephemeral in-memory analysis</div>
+            <div class="dropzone-btn">Ingest Canvas File</div>
+          </div>
+          <div class="canvas-file-info" id="canvasFileInfo" style="display: none;">
+            <div class="file-info-details">
+              <span class="file-name" id="infoFileName">—</span>
+              <span class="file-stats" id="infoFileStats">—</span>
+            </div>
+            <button type="button" class="reset-preset-btn" id="resetPresetBtn">Reset to Gallery Masterpiece</button>
+          </div>
+        </div>
       </div>
 
       <div class="engine-results">
         <div class="panel">
           <div class="panel-header">
-            <h2>Proportional Brand Mark</h2>
-            <span class="panel-hint">5-Token Harmonized Matrix</span>
+            <h2>Compositional Chromatic Hierarchy</h2>
+            <span class="panel-hint">Mass Distribution & Coverage Area</span>
           </div>
-          <div class="logo-display">
-            <canvas id="logoCanvas" width="216" height="216"></canvas>
-            <div class="logo-info">
-              <p>Harmonized Geometric Mark</p>
-              <span>Left: Dominant 50% · Right: 4 Accent Quadrants</span>
+          <div class="composition-proportions">
+            <div class="proportional-bar" id="proportionalBar">
+              <!-- Proportional segments injected via JS -->
+            </div>
+            <div class="proportional-legend" id="proportionalLegend">
+              <!-- Percentage chips injected via JS -->
             </div>
           </div>
         </div>
 
         <div class="panel">
           <div class="panel-header">
-            <h2>Brand Color Tokens</h2>
-            <span class="panel-hint">Click swatch to copy HEX & apply accent</span>
+            <h2>Historical Pigments & Palette Spectrum</h2>
+            <span class="panel-hint">Click swatch to inspect tone & copy HEX</span>
           </div>
           <div class="swatches-grid" id="swatchesGrid">
             <!-- Swatches injected via JS -->
@@ -462,19 +711,41 @@
 
         <div class="panel">
           <div class="panel-header">
-            <h2>Brand Design Application</h2>
-            <span class="panel-hint">Live System Preview</span>
+            <h2>Tonal Key & Color Temperature Analysis</h2>
+            <span class="panel-hint">Munsell Value Scale · Optical Harmony</span>
           </div>
-          <div class="brand-preview-card">
-            <div class="brand-preview-header">
-              <span class="brand-badge" id="previewBadge">Active Brand</span>
-              <span class="brand-spec">IDENTITY SPEC v1.0</span>
+          <div class="fine-art-analysis">
+            <div class="analysis-row">
+              <div class="analysis-meta">
+                <span class="analysis-label">Chromatic Temperature:</span>
+                <span class="analysis-val" id="tempRatioVal">Calculating...</span>
+              </div>
+              <div class="temp-bar" id="tempBar">
+                <div class="temp-cool" id="tempCoolBar" style="width: 50%;"></div>
+                <div class="temp-warm" id="tempWarmBar" style="width: 50%;"></div>
+              </div>
             </div>
-            <h3 class="brand-preview-title" id="previewTitle">Classical Art Meets Design Tokens</h3>
-            <p class="brand-preview-text">Extracted directly from high-resolution masterpiece reproductions. Optimized for digital contrast, accessible typography, and brand identity.</p>
-            <div class="brand-preview-actions">
-              <button class="brand-btn-primary" id="previewPrimaryBtn">Primary Action</button>
-              <button class="brand-btn-secondary" id="previewSecondaryBtn">Secondary Action</button>
+
+            <div class="analysis-row">
+              <div class="analysis-meta">
+                <span class="analysis-label">Tonal Structure:</span>
+                <span class="analysis-val" id="tonalKeyVal">Calculating...</span>
+              </div>
+              <div class="value-scale" id="valueScale">
+                <!-- 10 grayscale steps injected via JS -->
+              </div>
+            </div>
+
+            <div class="harmony-card">
+              <div class="harmony-header">
+                <span class="harmony-badge" id="harmonyBadge">Chromatic Harmony</span>
+                <span class="handling-badge" id="handlingBadge">Surface Handling</span>
+              </div>
+              <div class="harmony-title-row">
+                <span class="harmony-type" id="harmonyType">Chiaroscuro Harmony</span>
+                <span class="handling-type" id="handlingType">Tenebrist Glazing</span>
+              </div>
+              <p class="harmony-description" id="harmonyDesc">Analyzing optical interactions and pigment contrast...</p>
             </div>
           </div>
         </div>
@@ -482,54 +753,118 @@
     </div>
 
     <footer>
-      <p>Curated Fine Art Presets (Public Domain) · Client-Side Brand Extraction (Local Memory Only)</p>
+      <p>Curated Fine Art Presets (Public Domain) · Atelier Chromatic & Tonal Studio</p>
     </footer>
     <div id="toastNotification" class="toast-notification"></div>
   </div>
 
   <script>
-    // Artwork Presets using images from assets folder
+    // Art-historically authentic Masterpiece Presets
     const PRESETS = [
       {
         name: "The Great Wave",
         artist: "Katsushika Hokusai",
         title: "Katsushika Hokusai — The Great Wave off Kanagawa (c. 1831)",
+        medium: "Nishiki-e Woodblock Print (Imported Prussian blue & indigo ink on raw mulberry washi)",
         src: "assets/hokusai.jpg",
         license: "Public Domain · Metropolitan Museum of Art, New York",
         type: "wave",
-        palette: ["#0B2545", "#134074", "#8DA9C4", "#EEF4F8", "#D90429"]
+        palette: [
+          { hex: "#152A42", pigment: "Prussian Blue (Bero-ai)", temp: "Cool", value: 2, percent: 34 },
+          { hex: "#2B4C6F", pigment: "Natural Indigo Midtone Wash", temp: "Cool", value: 3, percent: 26 },
+          { hex: "#7C9AA8", pigment: "Sky Cerulean Tint", temp: "Cool", value: 6, percent: 18 },
+          { hex: "#E7DFCE", pigment: "Mulberry Washi Paper Ground", temp: "Neutral", value: 9, percent: 14 },
+          { hex: "#B53826", pigment: "Mineral Vermilion Cartouche Seal", temp: "Warm", value: 3, percent: 8 }
+        ],
+        tempRatio: { cool: 82, warm: 18 },
+        tonalKey: "Balanced Woodblock Contrast (Deep Indigo on Washi)",
+        harmony: {
+          badge: "Analogous Harmony",
+          type: "Indigo Spectrum with Complementary Accent",
+          handlingBadge: "Printmaking Method",
+          handling: "Ukiyo-e Bokashi Gradation (Hand-Wiped Woodblock)",
+          desc: "Dominated by imported Prussian blue graduated across raw mulberry washi paper. Balanced by an iron oxide / mineral vermilion seal accent in the upper sky."
+        }
       },
       {
         name: "Starry Night",
         artist: "Vincent van Gogh",
         title: "Vincent van Gogh — The Starry Night (1889)",
+        medium: "Post-Impressionist Oil on Canvas (Direct tube impasto with stiff bristle & palette knife)",
         src: "assets/starry_night.jpg",
         license: "Public Domain · Museum of Modern Art, New York",
         type: "swirl",
-        palette: ["#0B132B", "#1C2541", "#3A506B", "#5BC0BE", "#FFD166"]
+        palette: [
+          { hex: "#0F1D38", pigment: "French Ultramarine Midnight", temp: "Cool", value: 1, percent: 38 },
+          { hex: "#253F66", pigment: "Cobalt Blue Sky Swirl", temp: "Cool", value: 3, percent: 28 },
+          { hex: "#285362", pigment: "Atmospheric Viridian Green", temp: "Cool", value: 3, percent: 16 },
+          { hex: "#1A251E", pigment: "Cypress Bone Black & Umber", temp: "Neutral", value: 1, percent: 10 },
+          { hex: "#ECC247", pigment: "Chrome Yellow Halo (Lead Chromate)", temp: "Warm", value: 8, percent: 8 }
+        ],
+        tempRatio: { cool: 84, warm: 16 },
+        tonalKey: "Low-Key Nocturne (Luminous Celestial Accents)",
+        harmony: {
+          badge: "Complementary Nocturne",
+          type: "French Ultramarine & Chrome Yellow Dyad",
+          handlingBadge: "Paint Handling",
+          handling: "Directional Impasto Flow (Thick Tube Application)",
+          desc: "Swirling French ultramarine and cobalt sky punctuated by rhythmic impasto halos of toxic chrome yellow and viridian undertones against a dark cypress silhouette."
+        }
       },
       {
         name: "Water Lilies",
         artist: "Claude Monet",
         title: "Claude Monet — Water Lilies / Nymphéas (c. 1916)",
+        medium: "Late Impressionist Oil on Canvas (Alla prima broken color & wet-into-wet scumble)",
         src: "assets/water_lilies.jpg",
         license: "Public Domain · Musée de l'Orangerie / Wikimedia Commons",
         type: "lilies",
-        palette: ["#2C6B56", "#4E9F3D", "#D8E9A8", "#B83B5E", "#F7F6F2"]
+        palette: [
+          { hex: "#234B3B", pigment: "Viridian Lily Pad Depth", temp: "Cool", value: 3, percent: 32 },
+          { hex: "#4B6B40", pigment: "Emerald & Viridian Tint", temp: "Cool", value: 4, percent: 26 },
+          { hex: "#6D7292", pigment: "Cobalt Violet Water Reflection", temp: "Cool", value: 5, percent: 20 },
+          { hex: "#B8536E", pigment: "Alizarin Crimson Petal", temp: "Warm", value: 4, percent: 14 },
+          { hex: "#ECEBE2", pigment: "Lead White & Yellow Tint Bloom", temp: "Neutral", value: 9, percent: 8 }
+        ],
+        tempRatio: { cool: 60, warm: 40 },
+        tonalKey: "Mid-Key Harmonized (Optical Color Mixture)",
+        harmony: {
+          badge: "Analogous Harmony",
+          type: "Pond Greens & Water Violets with Madder Accent",
+          handlingBadge: "Paint Handling",
+          handling: "Impressionist Broken Color (Tache Scumble)",
+          desc: "Optical mixture of pure viridian, emerald, and atmospheric cobalt violet water reflections, free of black or earth ochres, illuminated by touches of alizarin crimson and pale lily blooms."
+        }
       },
       {
         name: "Girl with a Pearl Earring",
         artist: "Johannes Vermeer",
         title: "Johannes Vermeer — Girl with a Pearl Earring (c. 1665)",
+        medium: "Northern Baroque Oil on Canvas (Translucent glazing over dark imprimatura ground)",
         src: "assets/pearl_earring.jpg",
         license: "Public Domain · Mauritshuis, The Hague",
         type: "portrait",
-        palette: ["#1F1611", "#4A3B32", "#8C6D53", "#3D5A80", "#E0FBFC"]
+        palette: [
+          { hex: "#161311", pigment: "Bone Black & Weld Glaze Ground", temp: "Neutral", value: 1, percent: 46 },
+          { hex: "#947348", pigment: "Raw Ochre Drapery Jacket", temp: "Warm", value: 5, percent: 22 },
+          { hex: "#2C4668", pigment: "Genuine Lapis Lazuli Turban", temp: "Cool", value: 3, percent: 16 },
+          { hex: "#C69A7C", pigment: "Carnation Flesh Tone Glaze", temp: "Warm", value: 6, percent: 10 },
+          { hex: "#E2DDD5", pigment: "Lead White Specular Pearl", temp: "Neutral", value: 9, percent: 6 }
+        ],
+        tempRatio: { cool: 16, warm: 84 },
+        tonalKey: "Low-Key Tenebrism (Chiaroscuro Depth)",
+        harmony: {
+          badge: "Complementary Accent",
+          type: "Lapis Lazuli on Golden Ochre & Bone Black",
+          handlingBadge: "Paint Handling",
+          handling: "Tenebrist Glazing (Velatura over Dark Imprimatura)",
+          desc: "Dramatic tenebrist contrast between deep bone-black ground and directional window light modeling genuine Afghan lapis lazuli and pearl specular highlights."
+        }
       }
     ];
 
     function log(msg) {
-      console.log(`[PaletteCraft] ${msg}`);
+      console.log(`[PaletteCraft Studio] ${msg}`);
     }
 
     function showToast(msg) {
@@ -543,7 +878,25 @@
       }, 2200);
     }
 
-    // Helper: Convert RGB to Hex with channel clamping
+    function getContrastColor(hex) {
+      if (!hex) return '#faf7f2';
+      const num = parseInt(hex.replace('#', ''), 16);
+      if (isNaN(num)) return '#faf7f2';
+      const r = (num >> 16) & 255;
+      const g = (num >> 8) & 255;
+      const b = num & 255;
+      const lum = 0.299 * r + 0.587 * g + 0.114 * b;
+      return lum > 150 ? '#1a1714' : '#faf7f2';
+    }
+
+    function updateThemeColor(col) {
+      if (!col) return;
+      document.documentElement.style.setProperty('--accent', col);
+      document.documentElement.style.setProperty('--btn', col);
+      document.documentElement.style.setProperty('--btn-text', getContrastColor(col));
+      log(`Theme updated to ${col}`);
+    }
+
     function rgbToHex(r, g, b) {
       const clamp = v => Math.min(255, Math.max(0, Math.round(v)));
       return "#" + [clamp(r), clamp(g), clamp(b)].map(x => {
@@ -552,56 +905,75 @@
       }).join('').toUpperCase();
     }
 
-    // Helper: Compute WCAG accessible text color (ink vs ivory) based on background luminance
-    function getContrastColor(hex) {
-      const num = parseInt(hex.replace('#', ''), 16);
-      const r = (num >> 16) & 255;
-      const g = (num >> 8) & 255;
-      const b = num & 255;
-      const lum = 0.299 * r + 0.587 * g + 0.114 * b;
-      return lum > 150 ? '#1a1714' : '#faf7f2';
+    function rgbToHsv(r, g, b) {
+      r /= 255; g /= 255; b /= 255;
+      const max = Math.max(r, g, b);
+      const min = Math.min(r, g, b);
+      const d = max - min;
+      let h = 0;
+      const s = max === 0 ? 0 : d / max;
+      const v = max;
+      if (d !== 0) {
+        if (max === r) h = ((g - b) / d + (g < b ? 6 : 0)) * 60;
+        else if (max === g) h = ((b - r) / d + 2) * 60;
+        else h = ((r - g) / d + 4) * 60;
+      }
+      return { h, s, v };
     }
 
-    // Helper: Dynamically apply active theme color with legible button text
-    function updateThemeColor(col) {
-      document.documentElement.style.setProperty('--accent', col);
-      document.documentElement.style.setProperty('--btn', col);
-      document.documentElement.style.setProperty('--btn-text', getContrastColor(col));
-      log(`Theme updated to ${col}`);
-    }
+    // Historical Pigment Mapping Engine
+    function estimateHistoricalPigment(r, g, b) {
+      const { h, s, v } = rgbToHsv(r, g, b);
+      const lum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+      const value = Math.max(1, Math.min(10, Math.round(lum / 25.5)));
 
-    // Helper: Render downscaled image to offscreen canvas
-    function drawToOffscreenCanvas(img, maxDim = 400) {
-      const offscreen = document.createElement('canvas');
-      let w = img.naturalWidth || img.width;
-      let h = img.naturalHeight || img.height;
-      if (w > maxDim || h > maxDim) {
-        if (w > h) {
-          h = Math.round((h * maxDim) / w);
-          w = maxDim;
+      let pigment = "Neutral Earth Tone";
+      let temp = "Neutral";
+
+      if (s < 0.14) {
+        if (v < 0.22) pigment = "Bone Black / Bitumen";
+        else if (v < 0.42) pigment = "Bister / Raw Charcoal";
+        else if (v < 0.72) pigment = "Silver Gray / Earth Ochre";
+        else if (v < 0.88) pigment = "Mulberry Washi / Gesso";
+        else pigment = "Lead White / Chalk";
+        temp = "Neutral";
+      } else {
+        if ((h >= 0 && h <= 55) || h >= 330) temp = "Warm";
+        else if (h >= 135 && h <= 270) temp = "Cool";
+        else temp = (r > b ? "Warm" : "Cool");
+
+        if (h >= 340 || h < 18) {
+          if (v < 0.35) pigment = "Alizarin Crimson / Dark Madder";
+          else if (s > 0.6) pigment = "Mineral Vermilion";
+          else pigment = "Rose Madder / Venetian Red";
+        } else if (h < 45) {
+          if (v < 0.35) pigment = "Burnt Umber / Asphaltum";
+          else if (s > 0.6) pigment = "Red Ochre / Burnt Sienna";
+          else pigment = "Terra Cotta / Carnation Tint";
+        } else if (h < 75) {
+          if (v < 0.42) pigment = "Raw Umber / Dark Ochre";
+          else if (s > 0.6) pigment = "Chrome Yellow / Naples Yellow";
+          else pigment = "Golden Yellow Ochre";
+        } else if (h < 165) {
+          if (v < 0.35) pigment = "Deep Viridian / Oxide of Chromium";
+          else if (s > 0.55) pigment = "Emerald Green / Malachite";
+          else pigment = "Sap Green / Olive Glaze Tint";
+        } else if (h < 210) {
+          if (v < 0.35) pigment = "Indigo / Prussian Blue Wash";
+          else pigment = "Cobalt Turquoise / Cerulean Tint";
+        } else if (h < 265) {
+          if (v < 0.3) pigment = "Prussian Blue / Deep Ultramarine";
+          else if (v < 0.6) pigment = "Cobalt Blue / French Ultramarine";
+          else pigment = "Genuine Lapis Lazuli / Sky Blue";
         } else {
-          w = Math.round((w * maxDim) / h);
-          h = maxDim;
+          if (v < 0.35) pigment = "Deep Night Violet";
+          else pigment = "Cobalt Violet / Mineral Purpur";
         }
       }
-      offscreen.width = w;
-      offscreen.height = h;
-      const ctx = offscreen.getContext('2d');
-      ctx.drawImage(img, 0, 0, w, h);
-      return offscreen;
+
+      return { pigment, temp, value };
     }
 
-    // Color Vividness Scoring
-    function colorVividness(r, g, b) {
-      const max = Math.max(r, g, b) / 255;
-      const min = Math.min(r, g, b) / 255;
-      const chroma = max - min;
-      if (chroma <= 0.02) return 0;
-      const light = (max + min) / 2;
-      return chroma * (1 - Math.abs(2 * light - 1) * 0.4);
-    }
-
-    // Perceptual color distance (Redmean)
     function colorDistance(rgb1, rgb2) {
       const rmean = (rgb1[0] + rgb2[0]) / 2;
       const dr = rgb1[0] - rgb2[0];
@@ -612,7 +984,540 @@
       );
     }
 
-    // Load preset artwork image from assets folder
+    function drawToOffscreenCanvas(img, maxDim = 400) {
+      const offscreen = document.createElement('canvas');
+      let w = img.naturalWidth || img.width || 400;
+      let h = img.naturalHeight || img.height || 300;
+      if (w > maxDim || h > maxDim) {
+        if (w > h) {
+          h = Math.round((h * maxDim) / w);
+          w = maxDim;
+        } else {
+          w = Math.round((w * maxDim) / h);
+          h = maxDim;
+        }
+      }
+      offscreen.width = Math.max(1, w);
+      offscreen.height = Math.max(1, h);
+      const ctx = offscreen.getContext('2d');
+      ctx.drawImage(img, 0, 0, offscreen.width, offscreen.height);
+      return offscreen;
+    }
+
+    // Authentic Fine Art Procedural Generation (Fallback)
+    function generateArt(preset) {
+      log(`Rendering authentic painterly fallback: ${preset.title}`);
+      const canvas = document.getElementById('previewCanvas');
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width;
+      const h = canvas.height;
+
+      ctx.clearRect(0, 0, w, h);
+
+      if (preset.type === 'wave') {
+        // Hokusai: Ukiyo-e Woodblock Print
+        // 1. Bokashi Sky Gradation
+        const skyGrad = ctx.createLinearGradient(0, 0, 0, h * 0.75);
+        skyGrad.addColorStop(0, "#2B4C6F");
+        skyGrad.addColorStop(0.4, "#7C9AA8");
+        skyGrad.addColorStop(0.85, "#E7DFCE");
+        ctx.fillStyle = skyGrad;
+        ctx.fillRect(0, 0, w, h);
+
+        // 2. Distant Mount Fuji
+        ctx.fillStyle = "#152A42";
+        ctx.beginPath();
+        ctx.moveTo(w * 0.46, h * 0.72);
+        ctx.lineTo(w * 0.52, h * 0.52);
+        ctx.lineTo(w * 0.58, h * 0.72);
+        ctx.closePath();
+        ctx.fill();
+        // Snow Cap
+        ctx.fillStyle = "#E7DFCE";
+        ctx.beginPath();
+        ctx.moveTo(w * 0.505, h * 0.57);
+        ctx.lineTo(w * 0.52, h * 0.52);
+        ctx.lineTo(w * 0.535, h * 0.57);
+        ctx.closePath();
+        ctx.fill();
+
+        // 3. Dynamic Woodblock Ocean Waves
+        ctx.fillStyle = "#152A42";
+        ctx.beginPath();
+        ctx.moveTo(0, h);
+        ctx.lineTo(0, h * 0.65);
+        ctx.bezierCurveTo(w * 0.25, h * 0.45, w * 0.35, h * 0.15, w * 0.62, h * 0.32);
+        ctx.bezierCurveTo(w * 0.48, h * 0.45, w * 0.32, h * 0.55, w * 0.22, h * 0.72);
+        ctx.lineTo(w, h * 0.75);
+        ctx.lineTo(w, h);
+        ctx.closePath();
+        ctx.fill();
+
+        // 4. White Crest Foaming Claws
+        ctx.strokeStyle = "#E7DFCE";
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        for (let i = 0; i < 18; i++) {
+          const t = i / 18;
+          const cx = w * (0.2 + t * 0.42);
+          const cy = h * (0.55 - Math.sin(t * Math.PI) * 0.35);
+          ctx.moveTo(cx, cy);
+          ctx.lineTo(cx - 8, cy - 12);
+          ctx.moveTo(cx, cy);
+          ctx.lineTo(cx + 4, cy - 10);
+        }
+        ctx.stroke();
+
+        // 5. Vermilion Artist Cartouche Seal
+        ctx.fillStyle = "#B53826";
+        ctx.fillRect(w * 0.08, h * 0.08, 14, 28);
+        ctx.strokeStyle = "#E7DFCE";
+        ctx.strokeRect(w * 0.08, h * 0.08, 14, 28);
+
+      } else if (preset.type === 'swirl') {
+        // Van Gogh: Post-Impressionist Impasto Flow
+        ctx.fillStyle = "#0F1D38";
+        ctx.fillRect(0, 0, w, h);
+
+        // Curving Impasto Strokes
+        const colors = ["#253F66", "#285362", "#0F1D38", "#ECC247"];
+        for (let i = 0; i < 450; i++) {
+          const angle = (i * 0.08) + Math.sin(i * 0.05);
+          const r = 20 + (i % 140);
+          const cx = w * 0.55 + Math.cos(angle) * r;
+          const cy = h * 0.35 + Math.sin(angle) * (r * 0.6);
+          ctx.strokeStyle = colors[i % colors.length];
+          ctx.lineWidth = 3.5;
+          ctx.beginPath();
+          ctx.moveTo(cx, cy);
+          ctx.lineTo(cx + Math.cos(angle + 1.2) * 14, cy + Math.sin(angle + 1.2) * 8);
+          ctx.stroke();
+        }
+
+        // Luminous Stars with Halos
+        const stars = [[w * 0.2, h * 0.2], [w * 0.8, h * 0.18], [w * 0.45, h * 0.15], [w * 0.72, h * 0.45]];
+        stars.forEach(([sx, sy]) => {
+          const sGrad = ctx.createRadialGradient(sx, sy, 2, sx, sy, 22);
+          sGrad.addColorStop(0, "#FFFFFF");
+          sGrad.addColorStop(0.3, "#ECC247");
+          sGrad.addColorStop(1, "rgba(15, 29, 56, 0)");
+          ctx.fillStyle = sGrad;
+          ctx.beginPath();
+          ctx.arc(sx, sy, 22, 0, Math.PI * 2);
+          ctx.fill();
+        });
+
+        // Foreground Cypress Tree Silhouette
+        ctx.fillStyle = "#1A251E";
+        ctx.beginPath();
+        ctx.moveTo(w * 0.12, h);
+        ctx.bezierCurveTo(w * 0.08, h * 0.65, w * 0.18, h * 0.25, w * 0.15, h * 0.05);
+        ctx.bezierCurveTo(w * 0.24, h * 0.35, w * 0.28, h * 0.7, w * 0.25, h);
+        ctx.closePath();
+        ctx.fill();
+
+      } else if (preset.type === 'lilies') {
+        // Monet: Impressionist Broken Color Water Surface
+        ctx.fillStyle = "#284D3C";
+        ctx.fillRect(0, 0, w, h);
+
+        const mColors = ["#787D94", "#5B7B49", "#284D3C", "#B25B71", "#ECEBE2"];
+        for (let i = 0; i < 600; i++) {
+          const lx = Math.random() * w;
+          const ly = Math.random() * h;
+          const len = 15 + Math.random() * 25;
+          ctx.strokeStyle = mColors[Math.floor(Math.random() * mColors.length)];
+          ctx.lineWidth = 2 + Math.random() * 4;
+          ctx.beginPath();
+          ctx.moveTo(lx, ly);
+          ctx.lineTo(lx + len, ly + (Math.random() - 0.5) * 6);
+          ctx.stroke();
+        }
+
+        // Floating Lily Pads & Blooming Petals
+        for (let p = 0; p < 24; p++) {
+          const px = (p * 57) % w;
+          const py = h * 0.35 + (p * 33) % (h * 0.55);
+          ctx.fillStyle = "#284D3C";
+          ctx.beginPath();
+          ctx.ellipse(px, py, 22, 9, 0, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Rose Madder Bloom
+          ctx.fillStyle = "#B25B71";
+          ctx.beginPath();
+          ctx.arc(px + 4, py - 3, 5, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.fillStyle = "#ECEBE2";
+          ctx.beginPath();
+          ctx.arc(px + 3, py - 4, 2.5, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+      } else if (preset.type === 'portrait') {
+        // Vermeer: Chiaroscuro Tenebrism
+        ctx.fillStyle = "#161311";
+        ctx.fillRect(0, 0, w, h);
+
+        // Directional Key Light Gradient from upper-left
+        const vGrad = ctx.createRadialGradient(w * 0.45, h * 0.38, 15, w * 0.5, h * 0.5, 260);
+        vGrad.addColorStop(0, "#C69A7C");
+        vGrad.addColorStop(0.35, "#947348");
+        vGrad.addColorStop(0.7, "#161311");
+        ctx.fillStyle = vGrad;
+        ctx.fillRect(0, 0, w, h);
+
+        // Lapis Lazuli Turban Folds
+        ctx.fillStyle = "#2C4668";
+        ctx.beginPath();
+        ctx.arc(w * 0.5, h * 0.35, 75, Math.PI * 0.85, Math.PI * 1.85);
+        ctx.fill();
+
+        // Golden Ochre Draped Jacket
+        ctx.fillStyle = "#947348";
+        ctx.beginPath();
+        ctx.ellipse(w * 0.5, h * 0.82, 110, 65, 0, 0, Math.PI);
+        ctx.fill();
+
+        // Droplet Pearl Earring (Specular reflection)
+        ctx.fillStyle = "#E2DDD5";
+        ctx.beginPath();
+        ctx.ellipse(w * 0.47, h * 0.55, 6, 8, 0.2, 0, Math.PI * 2);
+        ctx.fill();
+        // Luster Highlight
+        ctx.fillStyle = "#FFFFFF";
+        ctx.beginPath();
+        ctx.arc(w * 0.46, h * 0.53, 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      document.getElementById('sourceImage').style.display = 'none';
+      canvas.style.display = 'block';
+      document.getElementById('artworkMeta').textContent = preset.title;
+      const medEl = document.getElementById('artworkMedium');
+      if (medEl) medEl.textContent = preset.medium || 'Procedural Fine Art Canvas';
+      document.getElementById('artworkLicense').textContent = preset.license || 'Procedural Fine Art Canvas';
+
+      extractFineArtPaletteFromCanvas(canvas, preset);
+    }
+
+    // Dynamic Fine Art Palette & Tonal Engine
+    function extractFineArtPaletteFromCanvas(canvas, fallbackPreset = null) {
+      log("Analyzing composition chromatically and tonally...");
+      let candidates = [];
+      let coolPixels = 0;
+      let warmPixels = 0;
+      let totalSampled = 0;
+      const valueHistogram = new Array(10).fill(0);
+
+      if (canvas && canvas.width > 0 && canvas.height > 0) {
+        try {
+          const ctx = canvas.getContext('2d');
+          const w = canvas.width;
+          const h = canvas.height;
+          const imgData = ctx.getImageData(0, 0, w, h).data;
+          const colorMap = new Map();
+
+          for (let y = 0; y < h; y += 2) {
+            for (let x = 0; x < w; x += 2) {
+              const idx = (y * w + x) * 4;
+              const a = imgData[idx + 3];
+              if (a < 128) continue;
+
+              const r = imgData[idx];
+              const g = imgData[idx + 1];
+              const b = imgData[idx + 2];
+
+              totalSampled++;
+
+              // Tonal value
+              const lum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+              const valBin = Math.min(9, Math.floor(lum / 25.6));
+              valueHistogram[valBin]++;
+
+              // Temperature balance
+              const { h: hue, s } = rgbToHsv(r, g, b);
+              if (s >= 0.1) {
+                if ((hue >= 0 && hue <= 55) || hue >= 330) warmPixels++;
+                else if (hue >= 135 && hue <= 270) coolPixels++;
+                else if (r > b) warmPixels++;
+                else coolPixels++;
+              }
+
+              // Quantize
+              const qr = Math.min(255, Math.round(r / 16) * 16);
+              const qg = Math.min(255, Math.round(g / 16) * 16);
+              const qb = Math.min(255, Math.round(b / 16) * 16);
+              const key = (qr << 16) | (qg << 8) | qb;
+
+              let entry = colorMap.get(key);
+              if (!entry) {
+                entry = { rgb: [qr, qg, qb], count: 0 };
+                colorMap.set(key, entry);
+              }
+              entry.count++;
+            }
+          }
+          candidates = Array.from(colorMap.values());
+        } catch (err) {
+          log(`Canvas pixel extraction restricted: ${err.message}`);
+        }
+      }
+
+      if (candidates.length === 0) {
+        if (fallbackPreset) {
+          renderFineArtResults(fallbackPreset);
+          return;
+        }
+        candidates = [
+          { rgb: [22, 19, 17], count: 50 },
+          { rgb: [60, 52, 44], count: 30 },
+          { rgb: [120, 105, 90], count: 20 },
+          { rgb: [180, 165, 150], count: 10 },
+          { rgb: [230, 225, 215], count: 5 }
+        ];
+        totalSampled = 115;
+      }
+      if (totalSampled === 0) totalSampled = 1;
+
+      // Sort by pixel mass (coverage)
+      candidates.sort((a, b) => b.count - a.count);
+
+      // Pick 5 distinct chromatic representatives
+      const picked = [];
+      if (candidates.length > 0) picked.push(candidates[0]);
+
+      while (picked.length < 5 && picked.length < candidates.length) {
+        let bestCandidate = null;
+        let maxComposite = -1;
+
+        candidates.forEach(cand => {
+          if (picked.includes(cand)) return;
+          let minDst = Infinity;
+          picked.forEach(p => {
+            minDst = Math.min(minDst, colorDistance(cand.rgb, p.rgb));
+          });
+          // Balance color mass with perceptual distinction
+          const composite = Math.sqrt(cand.count) * Math.min(1, minDst / 90);
+          if (composite > maxComposite) {
+            maxComposite = composite;
+            bestCandidate = cand;
+          }
+        });
+
+        if (bestCandidate) picked.push(bestCandidate);
+        else break;
+      }
+
+      while (picked.length < 5) {
+        picked.push(candidates[picked.length % candidates.length] || { rgb: [22, 19, 17], count: 1 });
+      }
+
+      // Calculate relative coverage percentages with Chroma & Contrast focal weighting
+      // Pure pixel area flattens focal marks (e.g. Hokusai vermilion seal, Vermeer pearl)
+      const weightedCounts = picked.map(p => {
+        const { s } = rgbToHsv(p.rgb[0], p.rgb[1], p.rgb[2]);
+        const focalMultiplier = 1.0 + (1.8 * s);
+        return p.count * focalMultiplier;
+      });
+      const totalWeighted = weightedCounts.reduce((acc, c) => acc + c, 0) || 1;
+
+      const palette = picked.map((p, idx) => {
+        const hex = rgbToHex(p.rgb[0], p.rgb[1], p.rgb[2]);
+        const { pigment, temp, value } = estimateHistoricalPigment(p.rgb[0], p.rgb[1], p.rgb[2]);
+        const percent = Math.max(3, Math.round((weightedCounts[idx] / totalWeighted) * 100));
+        return { hex, pigment, temp, value, percent };
+      });
+
+      // Normalize percentages to exactly 100%
+      const sumPercent = palette.reduce((a, b) => a + b.percent, 0);
+      if (sumPercent !== 100 && palette.length > 0) {
+        palette[0].percent += (100 - sumPercent);
+      }
+
+      // Chromatic Temperature calculation
+      const totalTemp = coolPixels + warmPixels;
+      let coolPercent = 50;
+      let warmPercent = 50;
+      if (totalTemp > 0) {
+        coolPercent = Math.round((coolPixels / totalTemp) * 100);
+        warmPercent = 100 - coolPercent;
+      }
+
+      // Tonal Key determination
+      const lowKeyPixels = valueHistogram.slice(0, 3).reduce((a, b) => a + b, 0);
+      const highKeyPixels = valueHistogram.slice(7).reduce((a, b) => a + b, 0);
+      let tonalKey = "Mid-Key Harmonized (Even Tonal Spectrum)";
+      if (lowKeyPixels / totalSampled > 0.45) {
+        tonalKey = "Low-Key Tenebrist (Chiaroscuro Depth)";
+      } else if (highKeyPixels / totalSampled > 0.45) {
+        tonalKey = "High-Key Luminous (Pale Ground Dominant)";
+      }
+
+      // Decouple Chromatic Harmony Chord from Physical Paint Handling
+      const hues = palette.map(p => {
+        const num = parseInt(p.hex.slice(1), 16);
+        return rgbToHsv((num >> 16) & 255, (num >> 8) & 255, num & 255).h;
+      });
+      const minHue = Math.min(...hues);
+      const maxHue = Math.max(...hues);
+      const hueSpan = maxHue - minHue;
+
+      let chordBadge = "Chromatic Harmony";
+      let chordType = "Optical Tonal Balance";
+      let handlingBadge = "Surface Handling";
+      let handlingType = "Direct Palette Mixture";
+      let chordDesc = "Nuanced interplay of historical pigments balancing tonal value and color temperature.";
+
+      if (hueSpan < 60) {
+        chordBadge = "Analogous Harmony";
+        chordType = "Close-Spanned Harmonic Spectrum";
+        chordDesc = "Colors dwell in harmonious proximity on the chromatic circle, creating atmospheric unity.";
+      } else if (coolPercent > 70 && warmPercent < 30) {
+        chordBadge = "Cool Nocturne";
+        chordType = "Atmospheric Cool Palette with Focal Accent";
+        chordDesc = "Dominated by deep cool tones with selective warm focal counterpoints.";
+      } else if (lowKeyPixels / totalSampled > 0.4) {
+        chordBadge = "Tonal Contrast";
+        chordType = "Chiaroscuro Value Range";
+        handlingBadge = "Paint Handling";
+        handlingType = "Tenebrist Imprimatura Ground";
+        chordDesc = "Dramatic dark imprimatura ground with focused illumination revealing key painterly planes.";
+      }
+
+      const results = {
+        palette,
+        tempRatio: { cool: coolPercent, warm: warmPercent },
+        tonalKey,
+        harmony: {
+          badge: chordBadge,
+          type: chordType,
+          handlingBadge: handlingBadge,
+          handling: handlingType,
+          desc: chordDesc
+        }
+      };
+
+      renderFineArtResults(results);
+    }
+
+    // Render Studio Panels
+    function renderFineArtResults(data) {
+      const { palette, tempRatio, tonalKey, harmony } = data;
+
+      // Adaptive Retinal Matting (Switch to dark mat for Low-Key Chiaroscuro & Tenebrism)
+      const imgContainer = document.getElementById('imageContainer');
+      if (imgContainer) {
+        if (tonalKey && tonalKey.toLowerCase().includes('low-key')) {
+          imgContainer.classList.add('dark-mat');
+        } else {
+          imgContainer.classList.remove('dark-mat');
+        }
+      }
+
+      // 1. Proportional Chromatic Area Bar & Legend
+      const pBar = document.getElementById('proportionalBar');
+      const pLegend = document.getElementById('proportionalLegend');
+      pBar.innerHTML = '';
+      pLegend.innerHTML = '';
+
+      palette.forEach(item => {
+        const seg = document.createElement('div');
+        seg.className = 'prop-segment';
+        seg.style.width = `${item.percent}%`;
+        seg.style.backgroundColor = item.hex;
+        seg.title = `${item.pigment}: ${item.percent}% (${item.hex})`;
+        seg.onclick = () => {
+          showToast(`Inspecting ${item.pigment} (${item.hex})`);
+          updateThemeColor(item.hex);
+        };
+        pBar.appendChild(seg);
+
+        const chip = document.createElement('div');
+        chip.className = 'legend-chip';
+        chip.innerHTML = `<span class="dot" style="background:${item.hex}"></span><span>${item.pigment}: ${item.percent}%</span>`;
+        pLegend.appendChild(chip);
+      });
+
+      // 2. Historical Pigments & Palette Spectrum Grid (Masstone Body + Undertone Glaze)
+      const sGrid = document.getElementById('swatchesGrid');
+      sGrid.innerHTML = '';
+      palette.forEach((item, idx) => {
+        const card = document.createElement('div');
+        card.className = `swatch-card ${idx === 0 ? 'active' : ''}`;
+        card.innerHTML = `
+          <div class="swatch-color" style="background-color: ${item.hex};">
+            <div class="swatch-masstone"></div>
+            <div class="swatch-undertone"></div>
+          </div>
+          <div class="swatch-hex">${item.hex}</div>
+          <div class="swatch-pigment">${item.pigment}</div>
+          <div class="swatch-meta">${item.temp} · Val ${item.value}/10 · ${item.percent}%</div>
+        `;
+        card.onclick = () => {
+          document.querySelectorAll('.swatch-card').forEach(c => c.classList.remove('active'));
+          card.classList.add('active');
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(item.hex).then(() => {
+              showToast(`Copied ${item.hex} (${item.pigment}) to clipboard`);
+            }).catch(() => {
+              showToast(`Selected: ${item.pigment} (${item.hex})`);
+            });
+          } else {
+            showToast(`Selected: ${item.pigment} (${item.hex})`);
+          }
+          updateThemeColor(item.hex);
+        };
+        sGrid.appendChild(card);
+      });
+
+      // 3. Chromatic Temperature & Tonal Key Analysis
+      const tempLabel = document.getElementById('tempRatioVal');
+      const coolBar = document.getElementById('tempCoolBar');
+      const warmBar = document.getElementById('tempWarmBar');
+      if (tempLabel && coolBar && warmBar) {
+        tempLabel.textContent = `${tempRatio.cool}% Cool · ${tempRatio.warm}% Warm`;
+        coolBar.style.width = `${tempRatio.cool}%`;
+        warmBar.style.width = `${tempRatio.warm}%`;
+      }
+
+      const tonalKeyLabel = document.getElementById('tonalKeyVal');
+      if (tonalKeyLabel) {
+        tonalKeyLabel.textContent = tonalKey;
+      }
+
+      // Render 10-step Munsell Value Scale
+      const vScale = document.getElementById('valueScale');
+      if (vScale) {
+        vScale.innerHTML = '';
+        const activeValues = new Set(palette.map(p => p.value));
+        for (let i = 1; i <= 10; i++) {
+          const step = document.createElement('div');
+          step.className = `value-step ${activeValues.has(i) ? 'active' : ''}`;
+          const gray = Math.round(((i - 1) / 9) * 240 + 15);
+          step.style.backgroundColor = `rgb(${gray}, ${gray}, ${gray})`;
+          step.title = `Value Step ${i}/10`;
+          vScale.appendChild(step);
+        }
+      }
+
+      // Harmonic Chord & Surface Handling Cards
+      const hBadge = document.getElementById('harmonyBadge');
+      const hType = document.getElementById('harmonyType');
+      const handBadge = document.getElementById('handlingBadge');
+      const handType = document.getElementById('handlingType');
+      const hDesc = document.getElementById('harmonyDesc');
+      if (hBadge && harmony && harmony.badge) hBadge.textContent = harmony.badge;
+      if (hType && harmony && harmony.type) hType.textContent = harmony.type;
+      if (handBadge && harmony && harmony.handlingBadge) handBadge.textContent = harmony.handlingBadge;
+      if (handType && harmony && harmony.handling) handType.textContent = harmony.handling;
+      if (hDesc && harmony && harmony.desc) hDesc.textContent = harmony.desc;
+
+      if (palette.length > 0) {
+        updateThemeColor(palette[0].hex);
+      }
+    }
+
     function loadPresetImage(preset) {
       log(`Loading artwork image: ${preset.src}`);
       const img = document.getElementById('sourceImage');
@@ -623,17 +1528,16 @@
         img.style.display = 'block';
         canvas.style.display = 'none';
         document.getElementById('artworkMeta').textContent = preset.title;
+        const medEl = document.getElementById('artworkMedium');
+        if (medEl) medEl.textContent = preset.medium || '';
         document.getElementById('artworkLicense').textContent = preset.license || 'Public Domain (PD-Art)';
-        const previewTitle = document.getElementById('previewTitle');
-        if (previewTitle) previewTitle.textContent = `${preset.name} Identity Spec`;
 
-        // Attempt color extraction via offscreen canvas
         try {
           const offscreen = drawToOffscreenCanvas(img, 400);
-          extractBrandColorsFromCanvas(offscreen);
+          extractFineArtPaletteFromCanvas(offscreen, preset);
         } catch (err) {
-          log(`Canvas pixel extraction restricted under file:// (${err.message}). Using preset palette.`);
-          renderEngineResults(preset.palette);
+          log(`Canvas pixel extraction restricted under file:// (${err.message}). Using authentic preset palette.`);
+          renderFineArtResults(preset);
         }
       }
 
@@ -643,302 +1547,208 @@
         generateArt(preset);
       };
 
-      if (img.getAttribute('src') !== preset.src) {
+      const currentSrc = img.getAttribute('src');
+      if (currentSrc === preset.src && img.complete && img.naturalWidth > 0) {
+        onArtworkReady();
+      } else {
         img.src = preset.src;
       }
-      if (img.complete && img.naturalWidth > 0) {
-        onArtworkReady();
-      }
     }
 
-    // Generate procedural art on preview canvas (fallback)
-    function generateArt(preset) {
-      log(`Rendering procedural masterpiece: ${preset.title}`);
+    function formatBytes(bytes) {
+      if (!bytes || bytes === 0) return '0 B';
+      const k = 1024;
+      const sizes = ['B', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+    }
+
+    // Comprehensive User Image Loader (supports Studio Dropzone, File Picker, Image Matting Drop, and Clipboard Paste)
+    function handleUserImageFile(file) {
+      if (!file) return;
+      const isImage = (file.type && file.type.startsWith('image/')) ||
+                      /\.(jpe?g|png|webp|gif|bmp|svg|avif)$/i.test(file.name);
+      if (!isImage) {
+        showToast("Please select a valid image file (JPEG, PNG, WebP).");
+        return;
+      }
+
+      log(`Loading user artwork: ${file.name} (${file.type || 'image'}, ${file.size} bytes)`);
+      showToast(`Loading ${file.name}...`);
+
+      const img = document.getElementById('sourceImage');
       const canvas = document.getElementById('previewCanvas');
-      const ctx = canvas.getContext('2d');
-      const w = canvas.width;
-      const h = canvas.height;
 
-      ctx.clearRect(0, 0, w, h);
+      function onImageSuccess() {
+        log(`Artwork loaded successfully: ${img.naturalWidth}x${img.naturalHeight}`);
+        img.style.display = 'block';
+        canvas.style.display = 'none';
+        document.getElementById('artworkMeta').textContent = `Masterpiece Study: ${file.name}`;
+        const medEl = document.getElementById('artworkMedium');
+        if (medEl) medEl.textContent = `Custom Painting Study · ${file.name}`;
+        document.getElementById('artworkLicense').textContent = `User Canvas (${img.naturalWidth} × ${img.naturalHeight}) · Processed locally in client memory`;
+        document.querySelectorAll('.preset-pill').forEach(p => p.classList.remove('active'));
 
-      // Background base
-      ctx.fillStyle = preset.palette[0];
-      ctx.fillRect(0, 0, w, h);
-
-      // Procedural generative drawing based on style type
-      if (preset.type === 'wave') {
-        // Wave arcs
-        for (let i = 0; i < 40; i++) {
-          ctx.beginPath();
-          ctx.strokeStyle = preset.palette[i % preset.palette.length];
-          ctx.lineWidth = 4 + (i % 8);
-          ctx.arc(w * 0.3, h * 0.8, 50 + i * 15, Math.PI * 1.1, Math.PI * 1.9, false);
-          ctx.stroke();
+        // Populate Custom Canvas Studio status container
+        const fileInfoPanel = document.getElementById('canvasFileInfo');
+        const infoFileName = document.getElementById('infoFileName');
+        const infoFileStats = document.getElementById('infoFileStats');
+        if (fileInfoPanel && infoFileName && infoFileStats) {
+          fileInfoPanel.style.display = 'flex';
+          infoFileName.textContent = file.name;
+          infoFileStats.textContent = `${img.naturalWidth} × ${img.naturalHeight} px · ${formatBytes(file.size)} · ${file.type || 'image'}`;
         }
-      } else if (preset.type === 'swirl') {
-        // Starry swirls
-        for (let i = 0; i < 150; i++) {
-          const x = Math.random() * w;
-          const y = Math.random() * h;
-          const r = Math.random() * 30 + 5;
-          ctx.fillStyle = preset.palette[Math.floor(Math.random() * preset.palette.length)];
-          ctx.beginPath();
-          ctx.arc(x, y, r, 0, Math.PI * 2);
-          ctx.fill();
-        }
-      } else if (preset.type === 'lilies') {
-        // Impressionist brush strokes
-        for (let i = 0; i < 300; i++) {
-          const x = Math.random() * w;
-          const y = Math.random() * h;
-          const len = Math.random() * 40 + 10;
-          ctx.strokeStyle = preset.palette[Math.floor(Math.random() * preset.palette.length)];
-          ctx.lineWidth = Math.random() * 12 + 4;
-          ctx.beginPath();
-          ctx.moveTo(x, y);
-          ctx.lineTo(x + len, y + (Math.random() - 0.5) * 20);
-          ctx.stroke();
-        }
-      } else if (preset.type === 'portrait') {
-        // Chiaroscuro light gradations
-        const grad = ctx.createRadialGradient(w * 0.7, h * 0.3, 20, w * 0.5, h * 0.5, 300);
-        grad.addColorStop(0, preset.palette[4]);
-        grad.addColorStop(0.5, preset.palette[2]);
-        grad.addColorStop(1, preset.palette[0]);
-        ctx.fillStyle = grad;
-        ctx.fillRect(0, 0, w, h);
-      }
 
-      // Hide img element, use canvas directly
-      document.getElementById('sourceImage').style.display = 'none';
-      canvas.style.display = 'block';
-      document.getElementById('artworkMeta').textContent = preset.title;
-      document.getElementById('artworkLicense').textContent = preset.license || 'Procedural Generative Canvas';
-
-      // Run brand color extraction engine on generated canvas
-      extractBrandColorsFromCanvas(canvas);
-    }
-
-    // Dynamic Brand Color Engine (from canvas)
-    function extractBrandColorsFromCanvas(canvas) {
-      log(`Running brand color extraction engine...`);
-      const ctx = canvas.getContext('2d');
-      const w = canvas.width;
-      const h = canvas.height;
-      const imgData = ctx.getImageData(0, 0, w, h).data;
-      const colorMap = new Map();
-
-      for (let y = 0; y < h; y += 2) {
-        for (let x = 0; x < w; x += 2) {
-          const idx = (y * w + x) * 4;
-          const a = imgData[idx+3];
-          if (a < 128) continue;
-
-          const r = imgData[idx];
-          const g = imgData[idx+1];
-          const b = imgData[idx+2];
-
-          const qr = Math.min(255, Math.round(r / 16) * 16);
-          const qg = Math.min(255, Math.round(g / 16) * 16);
-          const qb = Math.min(255, Math.round(b / 16) * 16);
-
-          const key = (qr << 16) | (qg << 8) | qb;
-          let entry = colorMap.get(key);
-          if (!entry) {
-            entry = { rgb: [qr, qg, qb], count: 0 };
-            colorMap.set(key, entry);
-          }
-          entry.count++;
+        try {
+          const offscreen = drawToOffscreenCanvas(img, 400);
+          extractFineArtPaletteFromCanvas(offscreen);
+          showToast(`Palette analyzed for ${file.name}`);
+        } catch (err) {
+          log(`Color extraction error: ${err.message}`);
+          showToast("Extracted general tonal spectrum");
+          extractFineArtPaletteFromCanvas(null);
         }
       }
 
-      let candidates = Array.from(colorMap.values());
-      log(`Sampled ${candidates.length} unique color bins.`);
-
-      if (candidates.length === 0) {
-        log(`No opaque pixels detected. Using fallback palette.`);
-        renderEngineResults(["#1A1714", "#3D3830", "#7A7268", "#B8B0A4", "#FAF7F2"]);
-        return;
-      }
-
-      // Filter out low-frequency noise bins if sufficient candidates exist
-      const filtered = candidates.filter(c => c.count >= 8);
-      if (filtered.length >= 5) {
-        candidates = filtered;
-      }
-
-      // Check for monochrome / low-chroma imagery
-      let maxChroma = 0;
-      candidates.forEach(c => {
-        const [r, g, b] = c.rgb;
-        const chroma = (Math.max(r, g, b) - Math.min(r, g, b)) / 255;
-        if (chroma > maxChroma) maxChroma = chroma;
-      });
-
-      if (maxChroma < 0.05) {
-        log(`Monochrome artwork detected (max chroma ${maxChroma.toFixed(3)}). Selecting tonal gradient.`);
-        candidates.sort((a, b) => (a.rgb[0] + a.rgb[1] + a.rgb[2]) - (b.rgb[0] + b.rgb[1] + b.rgb[2]));
-        const step = (candidates.length - 1) / 4;
-        const pickedMono = [
-          candidates[0],
-          candidates[Math.round(step)],
-          candidates[Math.round(step * 2)],
-          candidates[Math.round(step * 3)],
-          candidates[candidates.length - 1]
-        ];
-        const finalColors = pickedMono.map(p => rgbToHex(p.rgb[0], p.rgb[1], p.rgb[2]));
-        log(`Extracted 5 tonal brand colors: ${finalColors.join(', ')}`);
-        renderEngineResults(finalColors);
-        return;
-      }
-
-      // Score candidates: vividness weighted by logarithmic pixel frequency
-      candidates.forEach(c => {
-        const vivid = colorVividness(c.rgb[0], c.rgb[1], c.rgb[2]);
-        c.score = vivid * Math.log10(c.count + 1);
-      });
-      candidates.sort((a, b) => b.score - a.score);
-
-      const picked = [];
-      if (candidates.length > 0) picked.push(candidates[0]);
-
-      while (picked.length < 5 && picked.length < candidates.length) {
-        let bestCandidate = null;
-        let maxScore = -1;
-
-        candidates.forEach(cand => {
-          if (picked.includes(cand)) return;
-          let minDst = Infinity;
-          picked.forEach(p => {
-            minDst = Math.min(minDst, colorDistance(cand.rgb, p.rgb));
-          });
-          const composite = cand.score * Math.min(1, minDst / 120);
-          if (composite > maxScore) {
-            maxScore = composite;
-            bestCandidate = cand;
-          }
-        });
-
-        if (bestCandidate) picked.push(bestCandidate);
-        else break;
-      }
-
-      while (picked.length < 5) {
-        picked.push(candidates[picked.length % candidates.length] || { rgb: [26, 23, 20] });
-      }
-
-      const finalColors = picked.map(p => rgbToHex(p.rgb[0], p.rgb[1], p.rgb[2]));
-      log(`Extracted 5 distinct brand colors: ${finalColors.join(', ')}`);
-      renderEngineResults(finalColors);
-    }
-
-    function renderEngineResults(colors) {
-      // 1. Draw 5-Color Proportional Brand Mark (high-res 216x216)
-      const logoCanvas = document.getElementById('logoCanvas');
-      logoCanvas.width = 216;
-      logoCanvas.height = 216;
-      const lCtx = logoCanvas.getContext('2d');
-      lCtx.clearRect(0, 0, 216, 216);
-
-      // Hero dominant block (left 50%: 108x216)
-      lCtx.fillStyle = colors[0] || "#1A1714";
-      lCtx.fillRect(0, 0, 108, 216);
-
-      // 4 Secondary & accent blocks (right 50%: 2 cols x 2 rows, each 54x108)
-      const accents = [
-        colors[1] || colors[0],
-        colors[2] || colors[0],
-        colors[3] || colors[0],
-        colors[4] || colors[0]
-      ];
-      accents.forEach((col, idx) => {
-        const x = 108 + (idx % 2) * 54;
-        const y = Math.floor(idx / 2) * 108;
-        lCtx.fillStyle = col;
-        lCtx.fillRect(x, y, 54, 108);
-      });
-
-      // 2. Render Swatches with Semantic Design System Roles
-      const ROLES = ["Dominant", "Secondary", "Accent", "Surface", "Neutral"];
-      const grid = document.getElementById('swatchesGrid');
-      grid.innerHTML = '';
-      colors.forEach((col, idx) => {
-        const card = document.createElement('div');
-        card.className = `swatch-card ${idx === 0 ? 'active' : ''}`;
-        card.innerHTML = `
-          <div class="swatch-color" style="background-color: ${col};"></div>
-          <div class="swatch-hex">${col}</div>
-          <div class="swatch-role">${ROLES[idx] || 'Token'}</div>
-        `;
-        card.onclick = () => {
-          document.querySelectorAll('.swatch-card').forEach(c => c.classList.remove('active'));
-          card.classList.add('active');
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(col).then(() => {
-              showToast(`Copied ${col} to clipboard`);
-            }).catch(() => {
-              showToast(`Active accent: ${col}`);
-            });
-          } else {
-            showToast(`Active accent: ${col}`);
-          }
-          updateThemeColor(col);
+      // Always use FileReader readAsDataURL: 100% reliable, zero CORS/taint restriction in Chrome & Firefox
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        img.onload = onImageSuccess;
+        img.onerror = function() {
+          log("Image failed to decode data URL.");
+          showToast("Failed to render image format.");
         };
-        grid.appendChild(card);
-      });
-
-      if (colors.length > 0) {
-        updateThemeColor(colors[0]);
-      }
+        img.src = event.target.result;
+      };
+      reader.onerror = function() {
+        log("FileReader failed to read image.");
+        showToast("Error reading file.");
+      };
+      reader.readAsDataURL(file);
     }
 
-    // Initialize Presets & Upload Handler
     function init() {
       const container = document.getElementById('presetsContainer');
       PRESETS.forEach((preset, idx) => {
         const pill = document.createElement('button');
         pill.className = `preset-pill ${idx === 0 ? 'active' : ''}`;
-        pill.innerHTML = `<span class="pill-dot" style="background:${preset.palette[0]};"></span><span>${preset.artist} — ${preset.name}</span>`;
+        pill.innerHTML = `<span class="pill-dot" style="background:${preset.palette[0].hex};"></span><span>${preset.artist} — ${preset.name}</span>`;
         pill.onclick = () => {
           document.querySelectorAll('.preset-pill').forEach(p => p.classList.remove('active'));
           pill.classList.add('active');
+          const fileInfoPanel = document.getElementById('canvasFileInfo');
+          if (fileInfoPanel) fileInfoPanel.style.display = 'none';
           loadPresetImage(preset);
         };
         container.appendChild(pill);
       });
 
-      // Load first preset image from assets
-      loadPresetImage(PRESETS[0]);
-
-      // File upload listener
-      document.getElementById('fileInput').onchange = (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          const img = document.getElementById('sourceImage');
-          const canvas = document.getElementById('previewCanvas');
-          img.onload = () => {
-            img.style.display = 'block';
-            canvas.style.display = 'none';
-            document.getElementById('artworkMeta').textContent = `Custom Artwork: ${file.name}`;
-            document.getElementById('artworkLicense').textContent = 'User-provided file · Processed locally in client memory';
-            const previewTitle = document.getElementById('previewTitle');
-            if (previewTitle) previewTitle.textContent = `${file.name.replace(/\.[^/.]+$/, "")} Identity Spec`;
-            document.querySelectorAll('.preset-pill').forEach(p => p.classList.remove('active'));
-
-            try {
-              const offscreen = drawToOffscreenCanvas(img, 400);
-              extractBrandColorsFromCanvas(offscreen);
-            } catch (err) {
-              log(`Pixel extraction restricted: ${err.message}`);
-            }
-          };
-          img.src = event.target.result;
+      // File input handling in dedicated studio container
+      const fileInput = document.getElementById('fileInput');
+      if (fileInput) {
+        fileInput.onchange = function(e) {
+          if (this.files && this.files.length > 0) {
+            handleUserImageFile(this.files[0]);
+            this.value = ''; // Reset so selecting same file again triggers change
+          }
         };
-        reader.readAsDataURL(file);
-        e.target.value = '';
-      };
+      }
+
+      // Reset to presets button
+      const resetBtn = document.getElementById('resetPresetBtn');
+      if (resetBtn) {
+        resetBtn.onclick = () => {
+          const firstPill = document.querySelector('.preset-pill');
+          if (firstPill) firstPill.click();
+        };
+      }
+
+      // Drag & Drop and Click on dedicated Studio Dropzone Box
+      const dropzone = document.getElementById('dropzoneBox');
+      if (dropzone) {
+        dropzone.onclick = (e) => {
+          if (fileInput) fileInput.click();
+        };
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+          dropzone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropzone.classList.add('drag-active');
+          });
+        });
+
+        dropzone.addEventListener('dragleave', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropzone.classList.remove('drag-active');
+        });
+
+        dropzone.addEventListener('drop', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropzone.classList.remove('drag-active');
+          const dt = e.dataTransfer;
+          if (dt && dt.files && dt.files.length > 0) {
+            handleUserImageFile(dt.files[0]);
+          }
+        });
+      }
+
+      // Drag & Drop and Click on Image Preview Container
+      const imgContainer = document.querySelector('.image-container');
+      if (imgContainer) {
+        imgContainer.onclick = (e) => {
+          if (fileInput) fileInput.click();
+        };
+        imgContainer.style.cursor = 'pointer';
+        imgContainer.title = 'Click or drop an image file here to analyze';
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+          imgContainer.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            imgContainer.classList.add('drag-active');
+          });
+        });
+
+        imgContainer.addEventListener('dragleave', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          imgContainer.classList.remove('drag-active');
+        });
+
+        imgContainer.addEventListener('drop', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          imgContainer.classList.remove('drag-active');
+          const dt = e.dataTransfer;
+          if (dt && dt.files && dt.files.length > 0) {
+            handleUserImageFile(dt.files[0]);
+          }
+        });
+      }
+
+      // Global Clipboard Paste (Ctrl+V)
+      window.addEventListener('paste', (e) => {
+        const clipboard = e.clipboardData || window.clipboardData;
+        if (clipboard && clipboard.items) {
+          for (let item of clipboard.items) {
+            if (item.kind === 'file' && (item.type.startsWith('image/') || item.type === '')) {
+              const file = item.getAsFile();
+              if (file) handleUserImageFile(file);
+              break;
+            }
+          }
+        }
+      });
+
+      // Prevent accidental window navigation on file drops
+      window.addEventListener('dragover', (e) => e.preventDefault());
+      window.addEventListener('drop', (e) => e.preventDefault());
+
+      // Load initial preset
+      loadPresetImage(PRESETS[0]);
     }
 
     window.onload = init;
