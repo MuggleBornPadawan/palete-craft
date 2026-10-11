@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PaletteCraft — Masterpiece Chromatic & Tonal Studio</title>
+  <title>PaletteCraft — Painter's Color, Value & Pigment Studio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Goudy+Bookletter+1911&family=Space+Grotesk:wght@300;400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -641,7 +641,7 @@
     <header>
       <div class="title-area">
         <h1>PaletteCraft</h1>
-        <p>Masterpiece Chromatic & Tonal Studio</p>
+        <p>Color, Value & Pigment Studio for Painters</p>
       </div>
     </header>
 
@@ -663,22 +663,22 @@
 
         <div class="panel canvas-loader-panel" id="canvasLoaderPanel">
           <div class="panel-header">
-            <h2>Custom Canvas Studio</h2>
-            <span class="panel-hint">Archival Ingestion & Reference Studies</span>
+            <h2>Studio Easel</h2>
+            <span class="panel-hint">Study & Reference Upload</span>
           </div>
           <div class="dropzone-box" id="dropzoneBox">
             <input type="file" id="fileInput" accept="image/*" title="Click or drop artwork file">
             <div class="dropzone-icon">🖼️</div>
-            <div class="dropzone-title">Place canvas or study reproduction here, or click to browse</div>
-            <div class="dropzone-subtitle">Archival client-side ingestion · Ephemeral in-memory analysis</div>
-            <div class="dropzone-btn">Ingest Canvas File</div>
+            <div class="dropzone-title">Drop artwork or study here, or click to browse</div>
+            <div class="dropzone-subtitle">Private client-side study · Images stay on your device</div>
+            <div class="dropzone-btn">Open Artwork File</div>
           </div>
           <div class="canvas-file-info" id="canvasFileInfo" style="display: none;">
             <div class="file-info-details">
               <span class="file-name" id="infoFileName">—</span>
               <span class="file-stats" id="infoFileStats">—</span>
             </div>
-            <button type="button" class="reset-preset-btn" id="resetPresetBtn">Reset to Gallery Masterpiece</button>
+            <button type="button" class="reset-preset-btn" id="resetPresetBtn">Return to Masterpiece Presets</button>
           </div>
         </div>
       </div>
@@ -686,8 +686,8 @@
       <div class="engine-results">
         <div class="panel">
           <div class="panel-header">
-            <h2>Compositional Chromatic Hierarchy</h2>
-            <span class="panel-hint">Mass Distribution & Coverage Area</span>
+            <h2>Color Mass & Dominance</h2>
+            <span class="panel-hint">Dominant Washes to Focal Accents</span>
           </div>
           <div class="composition-proportions">
             <div class="proportional-bar" id="proportionalBar">
@@ -701,8 +701,8 @@
 
         <div class="panel">
           <div class="panel-header">
-            <h2>Historical Pigments & Palette Spectrum</h2>
-            <span class="panel-hint">Click swatch to inspect tone & copy HEX</span>
+            <h2>Pigment Palette & Swatches</h2>
+            <span class="panel-hint">Masstone & Undertone Glaze · Click to Copy</span>
           </div>
           <div class="swatches-grid" id="swatchesGrid">
             <!-- Swatches injected via JS -->
@@ -711,13 +711,13 @@
 
         <div class="panel">
           <div class="panel-header">
-            <h2>Tonal Key & Color Temperature Analysis</h2>
-            <span class="panel-hint">Munsell Value Scale · Optical Harmony</span>
+            <h2>Value Key & Color Temperature</h2>
+            <span class="panel-hint">10-Step Value Scale · Warm & Cool Balance</span>
           </div>
           <div class="fine-art-analysis">
             <div class="analysis-row">
               <div class="analysis-meta">
-                <span class="analysis-label">Chromatic Temperature:</span>
+                <span class="analysis-label">Color Temperature:</span>
                 <span class="analysis-val" id="tempRatioVal">Calculating...</span>
               </div>
               <div class="temp-bar" id="tempBar">
@@ -728,7 +728,7 @@
 
             <div class="analysis-row">
               <div class="analysis-meta">
-                <span class="analysis-label">Tonal Structure:</span>
+                <span class="analysis-label">Value Key:</span>
                 <span class="analysis-val" id="tonalKeyVal">Calculating...</span>
               </div>
               <div class="value-scale" id="valueScale">
@@ -738,8 +738,8 @@
 
             <div class="harmony-card">
               <div class="harmony-header">
-                <span class="harmony-badge" id="harmonyBadge">Chromatic Harmony</span>
-                <span class="handling-badge" id="handlingBadge">Surface Handling</span>
+                <span class="harmony-badge" id="harmonyBadge">Color Harmony</span>
+                <span class="handling-badge" id="handlingBadge">Paint Application</span>
               </div>
               <div class="harmony-title-row">
                 <span class="harmony-type" id="harmonyType">Chiaroscuro Harmony</span>
@@ -753,7 +753,7 @@
     </div>
 
     <footer>
-      <p>Curated Fine Art Presets (Public Domain) · Atelier Chromatic & Tonal Studio</p>
+      <p>Masterpiece Studies (Public Domain) · Painter's Color, Value & Pigment Studio</p>
     </footer>
     <div id="toastNotification" class="toast-notification"></div>
   </div>
@@ -1347,14 +1347,14 @@
       // Tonal Key determination
       const lowKeyPixels = valueHistogram.slice(0, 3).reduce((a, b) => a + b, 0);
       const highKeyPixels = valueHistogram.slice(7).reduce((a, b) => a + b, 0);
-      let tonalKey = "Mid-Key Harmonized (Even Tonal Spectrum)";
+      let tonalKey = "Mid-Key (Balanced Tonal Range)";
       if (lowKeyPixels / totalSampled > 0.45) {
-        tonalKey = "Low-Key Tenebrist (Chiaroscuro Depth)";
+        tonalKey = "Low-Key (Deep Shadow & Chiaroscuro)";
       } else if (highKeyPixels / totalSampled > 0.45) {
-        tonalKey = "High-Key Luminous (Pale Ground Dominant)";
+        tonalKey = "High-Key (Luminous & Light Dominant)";
       }
 
-      // Decouple Chromatic Harmony Chord from Physical Paint Handling
+      // Decouple Color Harmony Scheme from Physical Paint Application
       const hues = palette.map(p => {
         const num = parseInt(p.hex.slice(1), 16);
         return rgbToHsv((num >> 16) & 255, (num >> 8) & 255, num & 255).h;
@@ -1363,16 +1363,16 @@
       const maxHue = Math.max(...hues);
       const hueSpan = maxHue - minHue;
 
-      let chordBadge = "Chromatic Harmony";
+      let chordBadge = "Color Harmony";
       let chordType = "Optical Tonal Balance";
-      let handlingBadge = "Surface Handling";
+      let handlingBadge = "Paint Application";
       let handlingType = "Direct Palette Mixture";
-      let chordDesc = "Nuanced interplay of historical pigments balancing tonal value and color temperature.";
+      let chordDesc = "Interplay of pigments balancing tonal value and color temperature.";
 
       if (hueSpan < 60) {
-        chordBadge = "Analogous Harmony";
-        chordType = "Close-Spanned Harmonic Spectrum";
-        chordDesc = "Colors dwell in harmonious proximity on the chromatic circle, creating atmospheric unity.";
+        chordBadge = "Analogous Scheme";
+        chordType = "Close-Spanned Color Wheel Range";
+        chordDesc = "Colors dwell in harmonious proximity on the color wheel, creating atmospheric unity.";
       } else if (coolPercent > 70 && warmPercent < 30) {
         chordBadge = "Cool Nocturne";
         chordType = "Atmospheric Cool Palette with Focal Accent";
@@ -1380,9 +1380,9 @@
       } else if (lowKeyPixels / totalSampled > 0.4) {
         chordBadge = "Tonal Contrast";
         chordType = "Chiaroscuro Value Range";
-        handlingBadge = "Paint Handling";
+        handlingBadge = "Paint Application";
         handlingType = "Tenebrist Imprimatura Ground";
-        chordDesc = "Dramatic dark imprimatura ground with focused illumination revealing key painterly planes.";
+        chordDesc = "Dramatic dark imprimatura ground with focused light revealing key painterly planes.";
       }
 
       const results = {
@@ -1583,10 +1583,10 @@
         log(`Artwork loaded successfully: ${img.naturalWidth}x${img.naturalHeight}`);
         img.style.display = 'block';
         canvas.style.display = 'none';
-        document.getElementById('artworkMeta').textContent = `Masterpiece Study: ${file.name}`;
+        document.getElementById('artworkMeta').textContent = `Artwork Study: ${file.name}`;
         const medEl = document.getElementById('artworkMedium');
         if (medEl) medEl.textContent = `Custom Painting Study · ${file.name}`;
-        document.getElementById('artworkLicense').textContent = `User Canvas (${img.naturalWidth} × ${img.naturalHeight}) · Processed locally in client memory`;
+        document.getElementById('artworkLicense').textContent = `Study (${img.naturalWidth} × ${img.naturalHeight}) · Private (processed locally on your device)`;
         document.querySelectorAll('.preset-pill').forEach(p => p.classList.remove('active'));
 
         // Populate Custom Canvas Studio status container
@@ -1602,7 +1602,7 @@
         try {
           const offscreen = drawToOffscreenCanvas(img, 400);
           extractFineArtPaletteFromCanvas(offscreen);
-          showToast(`Palette analyzed for ${file.name}`);
+          showToast(`Palette extracted for ${file.name}`);
         } catch (err) {
           log(`Color extraction error: ${err.message}`);
           showToast("Extracted general tonal spectrum");

@@ -1,6 +1,6 @@
 # PaletteCraft
 
-Masterpiece Chromatic & Tonal Studio for analyzing painterly color palettes, historical pigments, proportional coverage areas, and 10-step tonal value structures from historic classical paintings and custom artwork uploads.
+A color, value, and historical pigment studio for painters and visual artists. Analyzes painterly color palettes, authentic pigments, proportional color masses, and 10-step tonal value structures from classical masterpieces and custom artwork studies.
 
 **Live Studio:** [https://mugglebornpadawan.github.io/palete-craft/](https://mugglebornpadawan.github.io/palete-craft/)
 
@@ -8,21 +8,21 @@ Masterpiece Chromatic & Tonal Studio for analyzing painterly color palettes, his
 
 ## Visual Arts Studio Features
 
-### 1. Museum-Grade Adaptive Exhibition Matting
+### 1. Archival Matting & Ambient Contrast
 - **Preserved Aspect Ratios:** Artworks display uncropped within dynamic archival matting.
-- **Adaptive Contrast Containment:** Uses warm archival linen (`#E8E3DC`) for high and mid-key compositions. Automatically shifts to deep gallery charcoal (`#1C1A17`) for low-key chiaroscuro works (e.g., Vermeer) to prevent retinal glare and preserve delicate shadow glazing (*velatura*).
+- **Ambient Studio Contrast:** Uses warm archival linen (`#E8E3DC`) for high and mid-key compositions. Automatically shifts to deep gallery charcoal (`#1C1A17`) for low-key chiaroscuro works (e.g., Vermeer) to prevent glare and preserve delicate shadow glazes (*velatura*).
 - **Curated Classical Art Presets:** Katsushika Hokusai (*The Great Wave* — ukiyo-e woodblock), Vincent van Gogh (*The Starry Night* — tube impasto), Claude Monet (*Water Lilies* — broken color scumble), Johannes Vermeer (*Girl with a Pearl Earring* — tenebrist glaze).
 - **Museum Provenance & Medium Attribution:** Institutional attribution, historical paint medium specifications, and Public Domain worldwide licensing status.
-- **Custom Canvas Curation:** Ingest custom painting reproductions for instant client-side chromatic and tonal study.
+- **Studio Easel:** Place your own painting studies and reference photos for instant, private client-side color and value analysis.
 
-### 2. Chromatic, Tonal & Surface Analysis
-- **Focal-Weighted Compositional Hierarchy:** Visualizes canvas mass distribution as a proportional ribbon. Uses saturation weighting ($1.0 + 1.8 \times S$) so vital focal accents (such as Hokusai's vermilion seal or Vermeer's pearl) maintain compositional prominence rather than vanishing in flat area calculations.
+### 2. Color, Value & Pigment Analysis
+- **Color Mass & Dominance (Focal-Weighted):** Visualizes canvas mass distribution as a proportional ribbon. Uses saturation weighting ($1.0 + 1.8 \times S$) so vital focal accents (such as Hokusai's vermilion seal or Vermeer's pearl highlight) maintain compositional prominence rather than vanishing in flat area math.
 - **Masstone & Undertone Swatch Drawdowns:** Two-tier test cards displaying pure opaque paint body (masstone) alongside translucent glaze washes revealing the substrate (undertone).
 - **Historical Pigment Approximation:** Algorithmic mapping of extracted tones to authentic artist pigments (*Prussian Blue / Bero-ai*, *Genuine Lapis Lazuli*, *French Ultramarine*, *Alizarin Crimson*, *Mineral Vermilion*, *Yellow Ochre*, *Chrome Yellow*, *Deep Viridian*, *Lead White*, *Bone Black*). Monet's palette accurately excludes earth pigments (*Terre Verte*, umber) and black.
-- **10-Step Munsell Tonal Value Scale:** Evaluates value structure from Value 1 (deep shadow / bone black) to Value 10 (high highlight / lead white). Classifies works into Low-Key (tenebrist/chiaroscuro), Mid-Key (harmonized), or High-Key (luminous).
-- **Color Temperature Equilibrium:** Quantifies the exact ratio of Cool vs. Warm pigments across the composition.
-- **Decoupled Harmony & Handling:** Separates chromatic geometry (*Analogous*, *Complementary Nocturne*, *Harmonic Spectrum*) from physical paint application (*Ukiyo-e Bokashi Gradation*, *Directional Impasto Flow*, *Impressionist Tache Scumble*, *Tenebrist Glazing*).
-- **Authentic Painterly Fallbacks:** Procedural rendering simulating historical techniques when photographic assets are offline.
+- **10-Step Tonal Value Scale:** Evaluates value structure from Value 1 (deep shadow / bone black) to Value 10 (high highlight / lead white). Classifies works into Low-Key (deep shadow / chiaroscuro), Mid-Key (harmonized), or High-Key (luminous).
+- **Color Temperature Balance:** Quantifies the exact ratio of Cool vs. Warm pigments across the composition.
+- **Harmony & Paint Handling:** Separates chromatic color schemes (*Analogous*, *Complementary Nocturne*, *Harmonic Spectrum*) from physical paint application (*Ukiyo-e Bokashi Gradation*, *Directional Impasto Flow*, *Broken Color Scumble*, *Tenebrist Glazing*).
+- **Painterly Fallbacks:** Procedural rendering simulating historical techniques when photographic reproductions are offline.
 - **Pure Browser Atelier:** Single-file HTML5 Canvas and vanilla JavaScript. Runs offline without build dependencies.
 
 ---
@@ -84,16 +84,16 @@ All preset artworks located in the `assets/` directory are faithful photographic
 
 ---
 
-## User Content & Privacy Clauses
+## Privacy & Studio Ownership
 
-### 1. Client-Side Only Processing (No Server Storage)
-* **Local In-Memory Execution:** All custom user-uploaded images are processed entirely within the local web browser using the HTML5 FileReader and Canvas APIs.
-* **Zero Remote Transmission:** No image files, pixel buffers, telemetry, or user metadata are transmitted, uploaded, or stored on any remote server, database, or external service.
-* **Ephemeral State:** When the browser tab closes or reloads, all uploaded image memory is immediately cleared.
+### 1. 100% Private Client-Side Studio (Zero Server Uploads)
+* **Local In-Memory Execution:** All user-uploaded painting studies are processed entirely within the local web browser using HTML5 FileReader and Canvas APIs.
+* **Zero Remote Transmission:** No image files, pixel buffers, telemetry, or user metadata are ever uploaded, transmitted, or stored on any remote server, database, or external service.
+* **Ephemeral State:** When the browser tab closes or reloads, all loaded image memory is immediately cleared.
 
-### 2. User Ownership & Rights Verification
-* **Ownership Remains with the User:** PaletteCraft claims zero ownership over any images uploaded by users or the derived color schemes.
-* **User Due Diligence:** Users are solely responsible for checking and confirming image copyright, intellectual property rights, licensing agreements, and usage permissions for any files they upload.
+### 2. User Ownership & Rights
+* **Ownership Remains with the Artist:** PaletteCraft claims zero ownership over any images uploaded by artists or the derived palettes.
+* **User Due Diligence:** Users are responsible for confirming usage rights and permissions for any third-party files they study.
 
 ---
 
